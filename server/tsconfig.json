@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "lib": [ "es2015" ],
+    "module": "commonjs",
+    "outDir": "./dist",                       
+    "rootDir": "./src",                       
+    "strict": true,                           
+    "strictPropertyInitialization": false,  
+    "baseUrl": "./src", 
+    "allowJs": true,                      
+    "paths": {
+      "@modules/*" : ["modules/*"],
+      "@config/*" : ["config/*"],
+      "@shared/*" : ["shared/*"]
+    },                           
+    "types": ["reflect-metadata", "jest"],                             
+    "esModuleInterop": true,                     
+    "experimentalDecorators": true,        
+    "emitDecoratorMetadata": true,          
+    "skipLibCheck": true,                     
+    "forceConsistentCasingInFileNames": true  
+  },
+  "exclude": [
+    "coverage",
+    "jest.config.js"
+  ]   
+}
