@@ -14,7 +14,7 @@ GoBarber
 <hr />
  In the mobile application you can create appointments in a selected date.
 <h3>
-  <img alt="gobarbermobile" title="gobarbermobile" src="https://user-images.githubusercontent.com/62508848/94967344-3fcee180-04d5-11eb-9669-888ebdfb89d7.gif" width="100%" />
+  <img alt="gobarbermobile" title="gobarbermobile" src="https://user-images.githubusercontent.com/62508848/94967344-3fcee180-04d5-11eb-9669-888ebdfb89d7.gif" />
 </h3>
 
 ## 🚀 Technologies
