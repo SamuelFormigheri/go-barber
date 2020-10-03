@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 import {shade} from 'polished';
 
-interface IAppointment{
-    userEqualsUser: boolean;
+interface IProviderItem{
+    selected: boolean;
+}
+interface IHour{
+    selected: boolean;
+    available: boolean;
 }
 
 export const Container = styled.div`
@@ -71,32 +75,56 @@ export const  Profile = styled.div`
     }
 `;
 
-export const  NavigationContainer = styled.div`
+export const  ProviderContent = styled.div`
     max-width: 1120px;
-    margin: 20px auto;
+    margin: 48px auto;
     display: flex;
+    flex-direction: column;
+`;
 
-    a{
+export const ProviderItem = styled.div<IProviderItem>`
+    display:flex;
+    align-items:center;
+    & + div {
+        margin-top: 16px;
+    }
+    span{
+        margin-left: auto;
+        display: flex;
+        align-items:center;
+        color: var(--color-white-light);
+        svg{
+            color: var(--color-primary);
+            margin-right: 8px;
+        }
+    }
+    div{
+        flex: 1;
+        background: ${props => props.selected ? "#FF9000" : "#3e3b47"};
         display:flex;
         align-items:center;
-        text-decoration: none;
-        color: var(--color-black-light);
-        margin-left: auto;
-        transition: 200ms;
-        &:hover{
-            color: var(--color-white);
-            svg{
-                color: var(--color-white);
-            }
+        padding: 16px 24px;
+        border-radius: 10px;
+        margin-left: 24px;
+        img{
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
         }
-        svg{
-            margin-left: 10px;
+        > svg{
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
             color: var(--color-black-light);
-            width: 20px;
-            height: 20px;
-          }
+        }
+        strong{
+            margin-left: 24px;
+            color: var(--color-white);
+            font-weight: 400;
+        }
     }
 `;
+
 
 export const  Content = styled.main`
     max-width: 1120px;
@@ -130,6 +158,49 @@ export const  Schedule = styled.div`
             margin: 0 8px;
             font-weight: 500;
         }
+    }
+`;
+export const ButtonContent = styled.div`
+    max-width: 1120px;
+    margin: 48px auto;
+    display: flex;
+    align-items:center;
+    a{
+        display:flex;
+        align-items:center;
+        text-decoration: none;
+        color: var(--color-black-light);
+        margin-right: 20px;
+        transition: 200ms;
+        &:hover{
+            color: var(--color-white);
+            svg{
+                color: var(--color-white);
+            }
+        }
+        svg{
+            margin-left: 10px;
+            color: var(--color-black-light);
+            width: 20px;
+            height: 20px;
+          }
+    }
+`;
+
+export const ButtonConfirmAppointment = styled.button`
+    height: 50px;
+    width: 300px;
+    background: #ff9000;
+    border-radius: 10px;
+    align-items:center;
+    justify-content:center;
+    border: none;
+    transition: 200ms;
+    &:hover{
+        background: ${shade(0.2, '#FF9000')};
+    }
+    span{
+        padding: 10px;
     }
 `;
 
@@ -212,62 +283,6 @@ export const  Calendar = styled.aside`
   }
 `;
 
-export const NextAppointment = styled.div<IAppointment>`
-    margin-top: 64px;
-
-    > strong{
-        color: var(--color-black-light);
-        font-size: 20px;
-        font-weight: 400;
-    }
-
-    div{
-        background: ${props => props.userEqualsUser ? "var(--color-main-grey-dark)" : "var(--color-gray-light)" };
-        display:flex;
-        align-items:center;
-        padding: 16px 24px;
-        border-radius: 10px;
-        margin-top: 24px;
-        position: relative;
-
-        &::before{
-            position: absolute;
-            height: 80%;
-            width: 2px;
-            left: 0;
-            top: 10%;
-            content: '';
-            background: var(--color-primary);
-        }
-
-        img{
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-        }
-        > svg{
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            color: var(--color-black-light);
-        }
-        strong{
-            margin-left: 24px;
-            color: var(--color-white);
-        }
-        span{
-            margin-left: auto;
-            display: flex;
-            align-items:center;
-            color: var(--color-black-light);
-            svg{
-                color: var(--color-primary);
-                margin-right: 8px;
-            }
-        }
-    }
-`;
-
 export const Section = styled.section`
     margin-top: 48px;
 
@@ -285,45 +300,17 @@ export const Section = styled.section`
     }
 `;
 
-export const Appointment = styled.div<IAppointment>`
-    display:flex;
-    align-items:center;
-    & + div {
-        margin-top: 16px;
-    }
+
+export const SectionContent = styled.div`
+`;
+export const Hour = styled.button<IHour>`
+    padding: 12px;
+    background: ${(props)=> (props.selected ? '#ff9000' : '#3e3b47')};
+    border-radius: 10px;
+    margin-right: 8px;
+    opacity: ${(props)=> (props.available ? 1 : 0.3)};
+    border: none;
     span{
-        margin-left: auto;
-        display: flex;
-        align-items:center;
-        color: var(--color-white-light);
-        svg{
-            color: var(--color-primary);
-            margin-right: 8px;
-        }
-    }
-    div{
-        flex: 1;
-        background: ${props => props.userEqualsUser ? "var(--color-main-grey-dark)" : "var(--color-gray-light)" };
-        display:flex;
-        align-items:center;
-        padding: 16px 24px;
-        border-radius: 10px;
-        margin-left: 24px;
-        img{
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-        }
-        > svg{
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            color: var(--color-black-light);
-        }
-        strong{
-            margin-left: 24px;
-            color: var(--color-white);
-            font-weight: 400;
-        }
+        color: ${(props)=> (props.selected ? '#232129' : '#f4ede8')};
     }
 `;

@@ -2,6 +2,7 @@ import React,{ useState, useCallback, useEffect, useMemo } from 'react';
 import { isToday, format, isAfter, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import {FiPower, FiClock, FiUser} from 'react-icons/fi';
+import {GoCalendar} from 'react-icons/go';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
@@ -10,7 +11,8 @@ import Logo from '../../assets/icons/logo.svg';
 
 import api from '../../services/api';
 
-import { Container, Header, HeaderContent, Profile, Content, Schedule, Calendar, NextAppointment, Section, Appointment} from './styles';
+import { Container, Header, HeaderContent, Profile, Content, Schedule, 
+  Calendar, NextAppointment, Section, Appointment, NavigationContainer} from './styles';
 import { Link } from 'react-router-dom';
 
 interface IMonthAvailableItem {
@@ -23,8 +25,14 @@ interface IAppointment {
   date: string;
   hourFormatted: string;
   user: {
+    id: string;
     name: string;
     avatar_url: string;
+  }
+  provider: {
+    id: string;
+    name: string;
+    avatar_url: string; 
   }
 }
 
@@ -130,7 +138,9 @@ const Dashboard: React.FC = () => {
         </button>
       </HeaderContent>
     </Header>
-
+    <NavigationContainer>
+      <Link to="/create-appointment"> Criar novo Agendamento <GoCalendar /> </Link>
+    </NavigationContainer>
     <Content>
       <Schedule>
         <h1>Horários agendados</h1>
@@ -140,14 +150,18 @@ const Dashboard: React.FC = () => {
           <span>{selectedWeekDayAsText.charAt(0).toUpperCase() + selectedWeekDayAsText.slice(1)}</span>
         </p>
         {isToday(selectedDate) && nextAppointment && (
-          <NextAppointment>
+          <NextAppointment userEqualsUser={nextAppointment.user.id === user.id}>
             <strong>Agendamento a seguir</strong>
             <div>
-              {nextAppointment.user.avatar_url ? 
+              {nextAppointment.user.id !== user.id ? (nextAppointment.user.avatar_url ? 
                 <img src={nextAppointment.user.avatar_url} alt={nextAppointment.user.name}/> :
                 <FiUser />
+              ) : (nextAppointment.provider.avatar_url ? 
+                <img src={nextAppointment.provider.avatar_url} alt={nextAppointment.provider.name}/> :
+                <FiUser />
+              )
               }          
-              <strong>{nextAppointment.user.name}</strong>
+              <strong>{nextAppointment.user.id !== user.id ? `${nextAppointment.user.name} agendou com você.` : `Você agendou com ${nextAppointment.provider.name}.` }</strong>
               <span>
                 <FiClock />
                 {nextAppointment.hourFormatted}
@@ -160,17 +174,21 @@ const Dashboard: React.FC = () => {
           <strong>Manhã</strong>
           {morningAppointments.length > 0 ? morningAppointments.map(appointment =>{
             return(
-            <Appointment key={appointment.id}>
+            <Appointment key={appointment.id} userEqualsUser={appointment.user.id === user.id}>
                 <span>
                   <FiClock />
                   {appointment.hourFormatted}
                 </span>
                 <div>
-                  {appointment.user.avatar_url ? 
+                  {appointment.user.id !== user.id ? (appointment.user.avatar_url ? 
                     <img src={appointment.user.avatar_url} alt={appointment.user.name}/> :
                     <FiUser />
+                  ) : (appointment.provider.avatar_url ? 
+                    <img src={appointment.provider.avatar_url} alt={appointment.provider.name}/> :
+                    <FiUser />
+                  )
                   }          
-                  <strong>{appointment.user.name}</strong>
+                  <strong>{appointment.user.id !== user.id ? `${appointment.user.name} agendou com você.` : `Você agendou com ${appointment.provider.name}.` }</strong>
                 </div>
             </Appointment>
             );
@@ -181,17 +199,21 @@ const Dashboard: React.FC = () => {
           <strong>Tarde</strong>
           {eveningAppointments.length > 0 ? eveningAppointments.map(appointment =>{
             return(
-            <Appointment key={appointment.id}>
+            <Appointment key={appointment.id} userEqualsUser={appointment.user.id === user.id}>
                 <span>
                   <FiClock />
                   {appointment.hourFormatted}
                 </span>
                 <div>
-                  {appointment.user.avatar_url ? 
+                  {appointment.user.id !== user.id ? (appointment.user.avatar_url ? 
                     <img src={appointment.user.avatar_url} alt={appointment.user.name}/> :
                     <FiUser />
+                  ) : (appointment.provider.avatar_url ? 
+                    <img src={appointment.provider.avatar_url} alt={appointment.provider.name}/> :
+                    <FiUser />
+                  )
                   } 
-                  <strong>{appointment.user.name}</strong>
+                  <strong>{appointment.user.id !== user.id ? `${appointment.user.name} agendou com você.` : `Você agendou com ${appointment.provider.name}.` }</strong>
                 </div>
             </Appointment>
             );
