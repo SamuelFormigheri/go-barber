@@ -63,21 +63,13 @@ const CreateAppointment: React.FC = () => {
     setSelectedProvider(providerId);
   },[]);
 
-  /**Criado apenas para monitorar o valor do showDatePicker, depois de corrigir
-   * o bug do calendario pode apagar
-   */
-  useEffect(() => {
-    console.log(showDatePicker);
-  },[showDatePicker]);
-
   const handleToggleDatePicker = useCallback(()=>{
     setShowDatePicker((prevState) => !prevState);
   },[]);
 
   const handleDateChange = useCallback((event: any, date: Date | undefined)=>{
-    date && setSelectedDate(date);
-
     setShowDatePicker(Platform.OS === 'ios');
+    date && setSelectedDate(date); 
   },[]);
 
   const handleSelectHour = useCallback((hour: number)=>{
@@ -130,6 +122,18 @@ const CreateAppointment: React.FC = () => {
     });
   },[dayAvailables]);
 
+  //Calendar stored on useMemo to don't appear two times on the screen
+  const dateTimePicker = useMemo(() => {
+    return (
+      showDatePicker && (
+        <DateTimePicker value={selectedDate}
+        mode="date" display="calendar"
+        onChange={handleDateChange}
+        />
+      )
+    );
+  }, [showDatePicker, selectedDate, handleDateChange]);
+
   return (
     <Container>
       <Header>
@@ -168,12 +172,7 @@ const CreateAppointment: React.FC = () => {
               Selecionar outra data
             </OpenDatePickerButtonText>
           </OpenDatePickerButton>
-          {showDatePicker && (
-            <DateTimePicker value={selectedDate}
-            mode="date" display="calendar"
-            onChange={handleDateChange}
-            />
-          )}
+          {dateTimePicker}
         </Calendar>
 
         <Schedule>

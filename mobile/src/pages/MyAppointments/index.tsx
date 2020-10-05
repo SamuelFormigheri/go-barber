@@ -62,9 +62,8 @@ const MyAppointments: React.FC = () => {
   },[]);
 
   const handleDateChange = useCallback((event: any, date: Date | undefined)=>{
-    date && setSelectedDate(date);
-
     setShowDatePicker(Platform.OS === 'ios');
+    date && setSelectedDate(date);
   },[]);
 
   const selectedDateAsText = useMemo(()=>{
@@ -85,6 +84,17 @@ const MyAppointments: React.FC = () => {
     })
   },[appointments]);
 
+  const dateTimePicker = useMemo(() => {
+    return (
+      showDatePicker && (
+        <DateTimePicker value={selectedDate}
+        mode="date" display="calendar"
+        onChange={handleDateChange}
+        />
+      )
+    );
+  }, [showDatePicker, selectedDate, handleDateChange]);
+
   return (
     <Container>
       <Header>
@@ -103,12 +113,7 @@ const MyAppointments: React.FC = () => {
               Selecionar outra data
             </OpenDatePickerButtonText>
           </OpenDatePickerButton>
-          {showDatePicker && (
-            <DateTimePicker value={selectedDate}
-            mode="date" display="calendar"
-            onChange={handleDateChange}
-            />
-          )}
+          {dateTimePicker}
         </Calendar>
 
         <Schedule>
