@@ -5,7 +5,8 @@ import Icon from 'react-native-vector-icons/Feather';
 import {useAuth} from '../../hooks/AuthContext';
 
 import { Container, Header, HeaderTitle, UserName, ProfileButton, UserAvatar, ProvidersList,
-  ProviderContainer, ProviderAvatar, ProviderInfo, ProviderName, ProviderMeta, ProviderMetaText, ProvidersListTitle } from './styles';
+  ProviderContainer, ProviderAvatar, ProviderInfo, ProviderName, ProviderMeta, ProviderMetaText, ProvidersListTitle,
+  AgendaButton, AgendaText } from './styles';
 import api from '../../services/api';
 
 export interface IProvider{
@@ -45,6 +46,11 @@ const Dashboard: React.FC = () => {
           <UserAvatar source={{uri: user.avatar_url}} />
         </ProfileButton>
       </Header>
+
+      <AgendaButton onPress={()=> navigate('MyAppointments')}>
+          <Icon name="calendar" size={20} color="#999591"/>
+          <AgendaText> Verificar meus Agendamentos</AgendaText>
+      </AgendaButton>
 
       <ProvidersList data={providers}
       ListHeaderComponent={

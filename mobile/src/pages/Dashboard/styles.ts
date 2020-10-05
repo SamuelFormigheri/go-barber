@@ -3,8 +3,9 @@ import { FlatList } from 'react-native';
 import {IProvider} from './index';
 import { RectButton } from 'react-native-gesture-handler';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+
 export const Container = styled.View`
-  flex: 1;
+   height: 100%;
 `;
 
 export const  Header = styled.View`
@@ -29,6 +30,16 @@ export const  UserName = styled.Text`
     font-family: 'RobotoSlab-Medium';
 `;
 
+export const AgendaButton = styled.TouchableOpacity`
+    align-items:center;
+    flex-direction: row;
+    margin: 10px auto;
+`;
+
+export const  AgendaText = styled.Text`
+    color: #aaaaaa;
+    font-family: 'RobotoSlab-Medium';
+`;
 
 export const ProfileButton = styled.TouchableOpacity`
 `;

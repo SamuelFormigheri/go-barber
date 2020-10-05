@@ -148,7 +148,7 @@ export const  Hour = styled(RectButton)<IHourProps>`
 `;
 
 export const  HourText = styled.Text<IHourTextProps>`
-    color: ${(props)=> (props.selected ? '#232129' : '#f4ede8')};;
+    color: ${(props)=> (props.selected ? '#232129' : '#f4ede8')};
     font-family: 'RobotoSlab-Regular';
     font-size: 16px;
 `;
