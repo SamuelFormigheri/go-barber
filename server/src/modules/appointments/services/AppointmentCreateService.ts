@@ -61,6 +61,7 @@ class AppointmentCreateService {
         });
 
         await this.cacheProvider.delete(`provider-appointments:${obj.provider_id}:${format(appointmentDate,'yyyy-M-d')}`);
+        await this.cacheProvider.delete(`provider-appointments:${obj.user_id}:${format(appointmentDate,'yyyy-M-d')}`);
 
         return appointment;
     }
