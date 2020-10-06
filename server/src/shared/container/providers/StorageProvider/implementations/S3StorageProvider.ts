@@ -4,6 +4,7 @@ import aws, {S3} from 'aws-sdk';
 import uploadConfig from '@config/upload';
 
 import IStorageProvider from '../models/IStorageProvider';
+import mime from 'mime';
 
 export default class S3StorageProvider implements IStorageProvider{
     private client: S3;
@@ -17,14 +18,19 @@ export default class S3StorageProvider implements IStorageProvider{
     public async saveFile(file:string): Promise<string>{
         const originalPath = path.resolve(uploadConfig.directory, file);
 
-        const fileContent = await fs.promises.readFile(originalPath, {encoding: 'utf-8'});
+        const ContentType = mime.getType(originalPath);
+
+        if(!ContentType) throw new Error("File not found!");
+
+        const fileContent = await fs.promises.readFile(originalPath);
 
         //Configurações definidas no aws
         await this.client.putObject({
-           Bucket: 'app-gobarber',
+           Bucket: uploadConfig.config.aws.bucket,
            Key: file,
            ACL: 'public-read',
-           Body: fileContent
+           Body: fileContent,
+           ContentType: ContentType
         }).promise();
 
         await fs.promises.unlink(originalPath);
@@ -33,7 +39,7 @@ export default class S3StorageProvider implements IStorageProvider{
     }
     public async deleteFile(file:string): Promise<void>{
         await this.client.deleteObject({
-            Bucket: 'app-gobarber',
+            Bucket: uploadConfig.config.aws.bucket,
             Key: file
         }).promise();
     }

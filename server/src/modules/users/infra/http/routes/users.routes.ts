@@ -9,7 +9,7 @@ import UsersController from '../controllers/UsersController';
 
 
 const usersRouter = Router();
-const upload = multer(uploadConfig);
+const upload = multer(uploadConfig.config.disk);
 const usersController = new UsersController();
 
 usersRouter.post('/',celebrate({
