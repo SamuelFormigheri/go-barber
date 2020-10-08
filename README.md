@@ -9,12 +9,12 @@ GoBarber
 ## 💻 Project
  In the web application you can check the appointments that you have on the selected date.
 <h3>
-  <img alt="gobarberweb" title="gobarberweb" src="https://user-images.githubusercontent.com/62508848/94967320-334a8900-04d5-11eb-849d-d1bab7daa367.gif" width="100%" />
+  <img alt="gobarberweb" title="gobarberweb" src="https://user-images.githubusercontent.com/62508848/95404688-10acdb80-08ec-11eb-8bd0-fca83d3b71b7.gif" width="100%" />
 </h3>
 <hr />
  In the mobile application you can create appointments in a selected date.
 <h3>
-  <img alt="gobarbermobile" title="gobarbermobile" src="https://user-images.githubusercontent.com/62508848/94967344-3fcee180-04d5-11eb-9669-888ebdfb89d7.gif" />
+  <img alt="gobarbermobile" title="gobarbermobile" src="https://user-images.githubusercontent.com/62508848/95404706-23271500-08ec-11eb-98f5-a921b0f82a16.gif" />
 </h3>
 
 ## 🚀 Technologies
